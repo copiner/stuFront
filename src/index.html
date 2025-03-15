@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录页面</title>
+    <script src="./lib/jquery.min.js"></script>
+    <style>
+        body {
+            /* 设置背景颜色为淡蓝色 */
+            background-color: #e0f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0097a7;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background-color: #00838f;
+        }
+        .message-box{
+            color: #0097a7;
+            text-align: center;
+            padding: 12px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="login-container">
+    <h2>登录</h2>
+    <form id="loginForm">
+        <div class="input-group">
+            <label for="seatnumber">座位号</label>
+            <input type="text" id="seatnumber" name="seatnumber" required>
+        </div>
+        <div class="input-group">
+            <label for="name">姓名</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <button type="submit" class="login-button">登录</button>
+    </form>
+    <div id="message" class="message-box"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // 监听表单提交事件
+        $('#loginForm').on('submit', function (e) {
+            // 阻止表单默认提交行为
+            e.preventDefault();
+
+            // 获取用户名和密码
+            var seatnumber = $('#seatnumber').val();
+            var name = $('#name').val();
+
+            // 发送 AJAX 请求到后端接口
+            $.ajax({
+                url: '/lesson/users',
+                method: 'POST',
+                data: JSON.stringify({
+                    seatnumber,
+                    name
+                }),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status) {
+                        $('#message').text('登录成功！');
+                        // 可以在这里进行页面跳转等操作
+                    } else {
+                        $('#message').text('登录失败：' + response.message);
+                    }
+                },
+                error: function (error) {
+                    $('#message').text('请求出错：' + error.statusText);
+                }
+            });
+        });
+    });
+</script>
+</body>
+
+</html>
