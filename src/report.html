@@ -4,67 +4,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>方块布状态颜色变化</title>
+    <title>列表</title>
+    <script src="./lib/jquery.min.js"></script>
     <style>
         /* 定义方块容器的样式 */
         .square-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            justify-content: space-between;
         }
-
+        .a-col,
+        .b-col,
+        .c-col,
+        .d-col,
+        .e-col,
+        .f-col{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
         /* 定义方块的基本样式 */
         .square {
             width: 50px;
             height: 50px;
             background-color: gray;
             transition: background-color 0.3s ease;
+            text-align: center;
+            line-height: 50px;
+            color: #ffffff;
+        }
+        .ycolor{
+            background-color: green;
+        }
+        .ncolor{
+            background-color: gray;
+        }
+
+        .message-box{
+            color: #0097a7;
+            border-bottom:1px solid red;
+            display: flex;
+            margin-bottom: 20px;
+            justify-content: space-between;
+        }
+
+        .btn{
+            color: #0097a7;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+
+        .message{
+            height: 30px;
+            line-height: 30px;
+            width: 240px;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
+<div class="message-box">
+<div class="btn j_detail">详情</div>
+<div id="message" class="message"></div>
+<div class="btn j_reset">重置</div>
+</div>
 <!-- 方块容器 -->
-<div class="square-container" id="squareContainer">
+<div class="square-container">
+    <div class="a-col">
+        <div class="square j_a1">A1</div>
+        <div class="square j_a2">A2</div>
+        <div class="square j_a3">A3</div>
+        <div class="square j_a4">A4</div>
+        <div class="square j_a5">A5</div>
+        <div class="square j_a6">A6</div>
+        <div class="square j_a7">A7</div>
+        <div class="square j_a8">A8</div>
+    </div>
+
+    <div class="b-col">
+        <div class="square j_b1">B1</div>
+        <div class="square j_b2">B2</div>
+        <div class="square j_b3">B3</div>
+        <div class="square j_b4">B4</div>
+        <div class="square j_b5">B5</div>
+        <div class="square j_b6">B6</div>
+        <div class="square j_b7">B7</div>
+        <div class="square j_b8">B8</div>
+    </div>
+
+    <div class="c-col">
+        <div class="square j_c1">C1</div>
+        <div class="square j_c2">C2</div>
+        <div class="square j_c3">C3</div>
+        <div class="square j_c4">C4</div>
+        <div class="square j_c5">C5</div>
+        <div class="square j_c6">C6</div>
+        <div class="square j_c7">C7</div>
+        <div class="square j_c8">C8</div>
+    </div>
+    <div class="d-col">
+        <div class="square j_d1">D1</div>
+        <div class="square j_d2">D2</div>
+        <div class="square j_d3">D3</div>
+        <div class="square j_d4">D4</div>
+        <div class="square j_d5">D5</div>
+        <div class="square j_d6">D6</div>
+        <div class="square j_d7">D7</div>
+        <div class="square j_d8">D8</div>
+    </div>
+    <div class="e-col">
+        <div class="square j_e1">E1</div>
+        <div class="square j_e2">E2</div>
+        <div class="square j_e3">E3</div>
+        <div class="square j_e4">E4</div>
+        <div class="square j_e5">E5</div>
+        <div class="square j_e6">E6</div>
+        <div class="square j_e7">E7</div>
+        <div class="square j_e8">E8</div>
+    </div>
+    <div class="f-col">
+        <div class="square j_f1">F1</div>
+        <div class="square j_f2">F2</div>
+        <div class="square j_f3">F3</div>
+        <div class="square j_f4">F4</div>
+        <div class="square j_f5">F5</div>
+        <div class="square j_f6">F6</div>
+        <div class="square j_f7">F7</div>
+        <div class="square j_f8">F8</div>
+    </div>
 
 
 </div>
-<!-- 改变状态的按钮 -->
-<button onclick="changeStates()">改变状态</button>
 
 <script>
-    // 方块数量
-    const squareCount = 20;
-    // 获取方块容器元素
-    const squareContainer = document.getElementById('squareContainer');
+const Report = {
 
-    // 初始化方块
-    function initSquares() {
-        for (let i = 0; i < squareCount; i++) {
-            const square = document.createElement('div');
-            square.classList.add('square');
-            // 为每个方块添加 data-state 属性来存储状态
-            square.dataset.state = 'inactive';
-            squareContainer.appendChild(square);
-        }
-    }
+    initData:function(){
+        Report.getUsers();
+    },
+    initEvent:function(){
+        $(".j_reset").on('click',function(){
+            Report.resetUsers();
+        })
+    },
+    getUsers:function (){
+        $.ajax({
+            url: '/lesson/users',
+            method: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                    let arr = response.data;
+                    arr.forEach((item,idx)=>{
+                        if(item.status == '1'){
+                            $(".j_"+item.seatNumber.toLowerCase()).addClass("ycolor")
+                        }
+                        if(item.status == '0'){
+                            $(".j_"+item.seatNumber.toLowerCase()).addClass("ncolor")
+                        }
+                    })
+                } else {
 
-    // 改变方块状态和颜色的函数
-    function changeStates() {
-        const squares = document.querySelectorAll('.square');
-        squares.forEach(square => {
-            if (square.dataset.state === 'inactive') {
-                square.dataset.state = 'active';
-                square.style.backgroundColor = 'green';
-            } else {
-                square.dataset.state = 'inactive';
-                square.style.backgroundColor = 'gray';
+                }
+            },
+            error: function (error) {
+
             }
         });
-    }
+    },
+    resetUsers:function (){
+        $.ajax({
+            url: '/lesson/users/init',
+            method: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                    $('#message').text('重置成功！');
+                } else {
+                    $('#message').text('重置失败！');
+                }
+            },
+            error: function (error) {
+                $('#message').text('请求出错：' + error.statusText);
+            }
+        });
+    },
 
-    // 初始化方块
-    initSquares();
+    init: function(){
+        Report.initData();
+        Report.initEvent();
+    },
+
+}
+
+$(document).ready(function () {
+    Report.init();
+})
 </script>
 </body>
 

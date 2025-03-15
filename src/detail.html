@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>探究结果</title>
+    <script src="./lib/jquery.min.js"></script>
+    <style>
+        body {
+            /* 设置背景颜色为淡蓝色 */
+            background-color: #e0f7fa;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+<div class="login-container">
+    <div>
+        <span class="j_name"></span>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        let key = sessionStorage.getItem("key");
+        if(!key){
+            location.href = "./login.html";
+        }
+        let name = sessionStorage.getItem("name");
+        $(".j_name").text(key + '-' + name);
+
+    });
+</script>
+</body>
+
+</html>

@@ -4,38 +4,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>教学内容</title>
+    <title>探究内容</title>
     <script src="./lib/jquery.min.js"></script>
     <style>
+
         body {
             /* 设置背景颜色为淡蓝色 */
             background-color: #e0f7fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+        /* 隐藏原生的单选框 */
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* 自定义单选框容器样式 */
+        .radio-container {
+            display: inline-block;
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* 模拟单选框 */
+        .radio-container .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+        }
+
+        /* 选中时显示对号 */
+        .radio-container input:checked~.checkmark:after {
+            content: '✓';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #007BFF;
+            font-size: 18px;
+        }
+
+        /* 鼠标悬停效果 */
+        .radio-container:hover input~.checkmark {
+            border-color: #007BFF;
+        }
+
+        .main-container{
             height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+        }
+        .container{
+            width: 620px;
+            padding: 16px;
+            background-color: #ffffff;
+            border-radius: 14px;
+        }
+        .user-container{
+            text-align: left;
+            margin: 30px 0;
+        }
+        .case-container{
+            display: flex;
+            margin-top: 14px;
+        }
+        .sensor-container{
+            display: flex;
+            margin-top: 14px;
         }
 
-        .login-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+        .title{
+            width: 160px;
+        }
+        .progress-container{
+            margin: 24px 0;
+        }
+        .progress-item{
+            display: flex;
+            justify-content: space-between;
+        }
+        .progress-title{
+            text-align: center;
+        }
+        .progress-item input {
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+        .long-input{
+            width: 60%;
+            margin-bottom: -1px;
+        }
+        .short-input{
+            width: 40%;
+            margin-bottom: -1px;
         }
 
+        .submit-container{
+            width: 100%;
+            text-align: center;
+        }
+        .submit-button {
+            width: 180px;
+            padding: 10px;
+            background-color: #0097a7;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 15px 0;
+        }
+
+        .submit-button:hover {
+            background-color: #00838f;
+        }
     </style>
 </head>
 
 <body>
-<div class="login-container">
+<div class="main-container">
+    <div class="user-container">
+        <span class="j_name"></span>
+    </div>
+    <div class="container">
+        <div class="case-container">
+            <div class="title">你想实现的功能：</div>
+            <div>
+                <label class="radio-container">智能浇水
+                    <input type="radio" name="useCase">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="radio-container">智能光照
+                    <input type="radio" name="useCase">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="radio-container">噪声检测
+                    <input type="radio" name="useCase">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="sensor-container">
+            <div class="title">你想探究的传感器：</div>
+            <div>
+                <label class="radio-container">土壤湿度传感器
+                    <input type="radio" name="sensor">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="radio-container">光敏传感器
+                    <input type="radio" name="sensor">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="radio-container">声音传感器
+                    <input type="radio" name="sensor">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="title">探究过程：</div>
+            <div class="progress-item">
+                <div class="progress-title long-input">环境(关键词描述)</div>
+                <div class="progress-title short-input">数值</div>
+            </div>
+            <div class="progress-item">
+                <input class="long-input" type="text"  name="name">
+                <input class="short-input" type="text"  name="name">
+            </div>
+            <div class="progress-item">
+                <input class="long-input" type="text"  name="name">
+                <input class="short-input" type="text"  name="name">
+            </div>
+            <div class="progress-item">
+                <input class="long-input" type="text"  name="name">
+                <input class="short-input" type="text"  name="name">
+            </div>
+            <div class="progress-item">
+                <input class="long-input" type="text"  name="name">
+                <input class="short-input" type="text"  name="name">
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button type="submit" class="submit-button">提交</button>
+        </div>
+
+    </div>
 
 </div>
 
 <script>
     $(document).ready(function () {
+        let key = sessionStorage.getItem("key");
+        if(!key){
+            location.href = "./login.html";
+        }
+        let name = sessionStorage.getItem("name");
+        $(".j_name").text(key + '-' + name);
 
     });
 </script>
