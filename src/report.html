@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方块布状态颜色变化</title>
+    <style>
+        /* 定义方块容器的样式 */
+        .square-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* 定义方块的基本样式 */
+        .square {
+            width: 50px;
+            height: 50px;
+            background-color: gray;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 方块容器 -->
+<div class="square-container" id="squareContainer">
+
+
+</div>
+<!-- 改变状态的按钮 -->
+<button onclick="changeStates()">改变状态</button>
+
+<script>
+    // 方块数量
+    const squareCount = 20;
+    // 获取方块容器元素
+    const squareContainer = document.getElementById('squareContainer');
+
+    // 初始化方块
+    function initSquares() {
+        for (let i = 0; i < squareCount; i++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+            // 为每个方块添加 data-state 属性来存储状态
+            square.dataset.state = 'inactive';
+            squareContainer.appendChild(square);
+        }
+    }
+
+    // 改变方块状态和颜色的函数
+    function changeStates() {
+        const squares = document.querySelectorAll('.square');
+        squares.forEach(square => {
+            if (square.dataset.state === 'inactive') {
+                square.dataset.state = 'active';
+                square.style.backgroundColor = 'green';
+            } else {
+                square.dataset.state = 'inactive';
+                square.style.backgroundColor = 'gray';
+            }
+        });
+    }
+
+    // 初始化方块
+    initSquares();
+</script>
+</body>
+
+</html>
