@@ -63,7 +63,7 @@ task('clean', () => {
 //开发环境
 task('server',series('clean','watch','source',function(){
     connect.server({
-        root: './dist',
+        root: 'dist',
         port: 9000,
         livereload: true,
         middleware: function (connect, opt) {

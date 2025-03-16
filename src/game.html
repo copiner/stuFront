@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片拖动示例</title>
+    <style>
+        img {
+            position: absolute;
+            cursor: move;
+            width: 100px;
+            height: 100px;
+        }
+        body{
+            background-image: url("./images/classroom1.jpg ");
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body>
+<img src="./images/fish.png" alt="图片 1">
+<img src="./images/fish.png" alt="图片 1">
+<img src="./images/fish.png" alt="图片 1">
+<script>
+    const images = document.querySelectorAll('img');
+
+    images.forEach(image => {
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        image.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - image.offsetLeft;
+            offsetY = e.clientY - image.offsetTop;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                image.style.left = (e.clientX - offsetX) + 'px';
+                image.style.top = (e.clientY - offsetY) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+    });
+</script>
+</body>
+
+</html>
