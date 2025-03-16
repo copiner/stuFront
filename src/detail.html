@@ -4,30 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>探究结果</title>
+    <title>探究详情</title>
     <script src="./lib/jquery.min.js"></script>
     <style>
         body {
             /* 设置背景颜色为淡蓝色 */
             background-color: #e0f7fa;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 12px;
         }
 
-        .login-container {
+        .deatil-container {
             background-color: #fff;
+            min-height: 92vh;
+            padding: 12px;
+        }
+
+        .case-container{
+            display: flex;
+            justify-content: space-between;
+
+        }
+        .title{
+            margin: 16px 0;
+            text-align: center;
+        }
+        .item-info{
+            border: 1px solid #0097a7;
+            height: 120px;
+            margin-top: -1px;
+            font-size: 14px;
+        }
+        .case-item{
+            width: 25%;
+        }
+        .btn{
+            color: #0097a7;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+        .message{
+            height: 30px;
+            line-height: 30px;
+            width: 240px;
+            text-align: center;
+            color: red;
         }
     </style>
 </head>
 
 <body>
-<div class="login-container">
+
+
+
+<div class="deatil-container">
     <div>
-        <span class="j_name"></span>
+        <span class="btn j_users">状态</span>
+        <span class="btn j_refresh">刷新</span>
+        <span id="message" class="message"></span>
+    </div>
+<!--    <div>-->
+<!--        <span class="j_name"></span>-->
+<!--    </div>-->
+    <div class="case-container">
+        <div class="case-item">
+            <div class="title">土壤湿度传感器</div>
+            <div class="j_item01">
+
+            </div>
+        </div>
+
+        <div class="case-item">
+            <div class="title">光敏传感器</div>
+            <div class="j_item02">
+
+            </div>
+        </div>
+
+        <div class="case-item">
+            <div class="title">声音传感器</div>
+            <div class="j_item03">
+
+            </div>
+        </div>
+        <div class="case-item">
+            <!--            04-->
+            <div class="title">温湿度传感器</div>
+            <div class="j_item04">
+
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function () {
+
+const Detail = {
+    initData:function(){
         let key = sessionStorage.getItem("key");
         if(!key){
             location.href = "./login.html";
@@ -35,7 +113,139 @@
         let name = sessionStorage.getItem("name");
         $(".j_name").text(key + '-' + name);
 
-    });
+
+        Detail.initRecord()
+    },
+    initEvent:function(){
+
+        $(".j_refresh").on('click',function(){
+            Detail.initRecord();
+        })
+
+        $(".j_users").on('click',function(){
+            location.href = "./users.html"
+        })
+    },
+
+    initRecord:function (){
+        $.ajax({
+            url: '/lesson/reports',
+            method: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                    $('#message').text('已刷新！');
+                    Detail.resetTips();
+                    Detail.recordViews(response.data);
+
+                } else {
+                    $('#message').text(response.message)
+                }
+            },
+            error: function (error) {
+                $('#message').text('请求出错：' + error.statusText);
+            }
+        });
+    },
+    recordViews:function(data){
+        let html01 = '';
+        let html02 = '';
+        let html03 = '';
+        let html04 = '';
+
+        data.forEach(function(item){
+
+            if(item.sensor == "01"){
+                html01 = html01 + '<div class="item-info"><div>' + item.seatNumber + '</div>';
+                if(item.env1 && item.val1){
+                    html01 = html01 +'<div>'+ item.env1 + ':' + item.val1 +'</div>'
+                }
+                if(item.env2 && item.val2){
+                    html01 = html01 +'<div>'+  item.env2 + ':' + item.val2 +'</div>'
+                }
+                if(item.env3 && item.val3){
+                    html01 = html01 +'<div>'+  item.env3 + ':' + item.val3 +'</div>'
+                }
+                if(item.env4 && item.val4){
+                    html01 = html01 +'<div>'+  item.env4 + ':' + item.val4 +'</div>'
+                }
+                html01 = html01 + '</div>'
+            }
+            if(item.sensor == "02"){
+                html02 = html02 + '<div class="item-info"><div>' + item.seatNumber + '</div>';
+                if(item.env1 && item.val1){
+                    html02 = html02 +'<div>'+ item.env1 + ':' + item.val1 +'</div>'
+                }
+                if(item.env2 && item.val2){
+                    html02 = html02 +'<div>'+  item.env2 + ':' + item.val2 +'</div>'
+                }
+                if(item.env3 && item.val3){
+                    html02 = html02 +'<div>'+  item.env3 + ':' + item.val3 +'</div>'
+                }
+                if(item.env4 && item.val4){
+                    html02 = html02 +'<div>'+  item.env4 + ':' + item.val4 +'</div>'
+                }
+                html02 = html02 + '</div>'
+            }
+            if(item.sensor == "03"){
+                html03 = html03 + '<div class="item-info"><div>' + item.seatNumber + '</div>';
+                if(item.env1 && item.val1){
+                    html03 = html03 +'<div>'+ item.env1 + ':' + item.val1 +'</div>'
+                }
+                if(item.env2 && item.val2){
+                    html03 = html03 +'<div>'+  item.env2 + ':' + item.val2 +'</div>'
+                }
+                if(item.env3 && item.val3){
+                    html03 = html03 +'<div>'+  item.env3 + ':' + item.val3 +'</div>'
+                }
+                if(item.env4 && item.val4){
+                    html03 = html03 +'<div>'+  item.env4 + ':' + item.val4 +'</div>'
+                }
+                html03 = html03 + '</div>'
+            }
+            if(item.sensor == "04"){
+                html04 = html04 + '<div class="item-info"><div>' + item.seatNumber + '</div>';
+                if(item.env1 && item.val1){
+                    html04 = html04 +'<div>'+ item.env1 + ':' + item.val1 +'</div>'
+                }
+                if(item.env2 && item.val2){
+                    html04 = html04 +'<div>'+  item.env2 + ':' + item.val2 +'</div>'
+                }
+                if(item.env3 && item.val3){
+                    html04 = html04 +'<div>'+  item.env3 + ':' + item.val3 +'</div>'
+                }
+                if(item.env4 && item.val4){
+                    html04 = html04 +'<div>'+  item.env4 + ':' + item.val4 +'</div>'
+                }
+                html04 = html04 + '</div>'
+            }
+        })
+
+        $(".j_item01").html(html01);
+        $(".j_item02").html(html02);
+        $(".j_item03").html(html03);
+        $(".j_item04").html(html04);
+    },
+
+    resetTips:function(){
+        setTimeout(function(){
+            $('#message').text('');
+        },5000)
+    },
+
+
+    init:function(){
+        Detail.initData();
+        Detail.initEvent();
+    }
+}
+
+$(document).ready(function () {
+
+    Detail.init()
+
+});
 </script>
 </body>
 

@@ -38,7 +38,9 @@
         .ncolor{
             background-color: gray;
         }
-
+        .yborder{
+            border-right: 24px solid #007BFF;
+        }
         .message-box{
             color: #0097a7;
             border-bottom:1px solid red;
@@ -63,20 +65,24 @@
             line-height: 30px;
             width: 240px;
             text-align: center;
+            color: red;
         }
     </style>
 </head>
 
 <body>
 <div class="message-box">
-<div class="btn j_detail">详情</div>
-<div id="message" class="message"></div>
+<div>
+    <span class="btn j_detail">详情</span>
+    <span class="btn j_refresh">刷新</span>
+    <span id="message" class="message"></span>
+</div>
 <div class="btn j_reset">重置</div>
 </div>
 <!-- 方块容器 -->
 <div class="square-container">
     <div class="a-col">
-        <div class="square j_a1">A1</div>
+        <div class="square yborder j_a1">A1</div>
         <div class="square j_a2">A2</div>
         <div class="square j_a3">A3</div>
         <div class="square j_a4">A4</div>
@@ -142,14 +148,23 @@
 </div>
 
 <script>
-const Report = {
+const Users = {
 
     initData:function(){
-        Report.getUsers();
+        Users.getUsers();
+        Users.getRecord();
     },
     initEvent:function(){
         $(".j_reset").on('click',function(){
-            Report.resetUsers();
+            Users.resetUsers();
+        })
+        $(".j_refresh").on('click',function(){
+            Users.initData();
+
+        })
+
+        $(".j_detail").on('click',function(){
+            location.href = "./detail.html"
         })
     },
     getUsers:function (){
@@ -178,6 +193,33 @@ const Report = {
             }
         });
     },
+    getRecord:function (){
+        $.ajax({
+            url: '/lesson/reports',
+            method: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                    $('#message').text('已刷新！');
+
+                    Users.resetTips();
+
+                    let arr = response.data;
+                    arr.forEach((item,idx)=>{
+                        if(item.seatNumber){
+                            $(".j_"+item.seatNumber.toLowerCase()).addClass("yborder")
+                        }
+                    })
+                } else {
+
+                }
+            },
+            error: function (error) {
+                $('#message').text('请求出错：' + error.statusText);
+            }
+        });
+    },
     resetUsers:function (){
         $.ajax({
             url: '/lesson/users/init',
@@ -197,15 +239,21 @@ const Report = {
         });
     },
 
+    resetTips:function(){
+      setTimeout(function(){
+          $('#message').text('');
+      },5000)
+    },
+
     init: function(){
-        Report.initData();
-        Report.initEvent();
+        Users.initData();
+        Users.initEvent();
     },
 
 }
 
 $(document).ready(function () {
-    Report.init();
+    Users.init();
 })
 </script>
 </body>

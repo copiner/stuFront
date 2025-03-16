@@ -65,6 +65,7 @@ task('server',series('clean','watch','source',function(){
     connect.server({
         root: 'dist',
         port: 9000,
+        host:"localhost",
         livereload: true,
         middleware: function (connect, opt) {
             return [

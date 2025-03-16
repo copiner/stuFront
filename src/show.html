@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>图片拖动示例</title>
+    <title>示例</title>
     <style>
-        img {
+        .icon-img {
             position: absolute;
             cursor: move;
             width: 100px;
             height: 100px;
         }
+        .img1{
+            top:0
+        }
+        .img2{
+            top:100px;
+        }
+        .img3{
+            top:200px;
+        }
         body{
-            background-image: url("./imgs/classroom1.jpg ");
-            background-size: cover;
+            background-image: url("./imgs/classroom1.jpg");
             background-position: center;
+            background-size: cover;
             background-repeat:no-repeat;
             height: 100vh;
             width: 100vw;
@@ -23,9 +32,10 @@
 </head>
 
 <body>
-<img src="./imgs/fish.png" alt="图片 1">
-<img src="./imgs/fish.png" alt="图片 1">
-<img src="./imgs/fish.png" alt="图片 1">
+<img src="./imgs/fish.png" class="img1 icon-img" alt="温度传感器">
+<img src="./imgs/fish.png" class="img2 icon-img">
+<img src="./imgs/fish.png" class="img3 icon-img">
+
 <script>
     const images = document.querySelectorAll('img');
 
