@@ -258,13 +258,13 @@ const Main = {
             dataType: 'json',
             success: function (response) {
                 if (response.status === 'success') {
-                    $('#message').text('重置成功！');
+                    location.href = "./good.html"
                 } else {
-                    $('#message').text('重置失败！');
+
                 }
             },
             error: function (error) {
-                $('#message').text('请求出错：' + error.statusText);
+
             }
         });
     },
