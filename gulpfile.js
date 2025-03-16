@@ -60,6 +60,14 @@ task('clean', () => {
     })
 });
 
+task('build', series('clean','source',function(cb){
+    console.log(`
+        -----------------------------
+          clean tasks are successful
+        -----------------------------`);
+    cb();
+}));
+
 //开发环境
 task('server',series('clean','watch','source',function(){
     connect.server({

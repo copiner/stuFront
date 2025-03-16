@@ -55,6 +55,13 @@
             text-align: center;
             color: red;
         }
+        .message-box{
+            color: #0097a7;
+            border-bottom:1px solid red;
+            display: flex;
+            margin-bottom: 20px;
+            justify-content: space-between;
+        }
     </style>
 </head>
 
@@ -63,11 +70,15 @@
 
 
 <div class="deatil-container">
-    <div>
-        <span class="btn j_users">状态</span>
-        <span class="btn j_refresh">刷新</span>
-        <span id="message" class="message"></span>
+    <div class="message-box">
+        <div>
+            <span class="btn j_users">状态</span>
+            <span class="btn j_refresh">刷新</span>
+            <span id="message" class="message"></span>
+        </div>
+        <div class="btn j_reset">重置</div>
     </div>
+
 <!--    <div>-->
 <!--        <span class="j_name"></span>-->
 <!--    </div>-->
@@ -104,7 +115,7 @@
 
 <script>
 
-const Detail = {
+const Report = {
     initData:function(){
         let key = sessionStorage.getItem("key");
         if(!key){
@@ -114,12 +125,16 @@ const Detail = {
         $(".j_name").text(key + '-' + name);
 
 
-        Detail.initRecord()
+        Report.initRecord()
     },
     initEvent:function(){
 
+        $(".j_reset").on('click',function(){
+            Report.resetReport();
+        })
+
         $(".j_refresh").on('click',function(){
-            Detail.initRecord();
+            Report.initRecord();
         })
 
         $(".j_users").on('click',function(){
@@ -136,8 +151,8 @@ const Detail = {
             success: function (response) {
                 if (response.status === 'success') {
                     $('#message').text('已刷新！');
-                    Detail.resetTips();
-                    Detail.recordViews(response.data);
+                    Report.resetTips();
+                    Report.recordViews(response.data);
 
                 } else {
                     $('#message').text(response.message)
@@ -228,6 +243,25 @@ const Detail = {
         $(".j_item04").html(html04);
     },
 
+    resetReport:function (){
+        $.ajax({
+            url: '/lesson/reports/init',
+            method: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                    $('#message').text('重置成功！');
+                } else {
+                    $('#message').text('重置失败！');
+                }
+            },
+            error: function (error) {
+                $('#message').text('请求出错：' + error.statusText);
+            }
+        });
+    },
+
     resetTips:function(){
         setTimeout(function(){
             $('#message').text('');
@@ -236,14 +270,14 @@ const Detail = {
 
 
     init:function(){
-        Detail.initData();
-        Detail.initEvent();
+        Report.initData();
+        Report.initEvent();
     }
 }
 
 $(document).ready(function () {
 
-    Detail.init()
+    Report.init()
 
 });
 </script>
