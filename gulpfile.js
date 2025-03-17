@@ -1,14 +1,28 @@
 
 const { src, dest, task, series, parallel, watch, lastRun } = require('gulp');
 const connect = require('gulp-connect');
+const plumber = require("gulp-plumber");
 const proxy = require('http-proxy-middleware');
 const del = require('del');
 
 
-task('source', function (cb) {
-    src('src/**/*')
-        .pipe(dest('dist/'))
-        .pipe(connect.reload());
+task('html', function (cb) {
+    src('src/*.html').pipe(plumber()).pipe(dest('dist/'));
+    cb();
+});
+
+task("lib", function (cb) {
+    src("src/lib/*").pipe(plumber()).pipe(dest("dist/lib"));
+    cb();
+});
+
+task("util", function (cb) {
+    src("src/util/*").pipe(plumber()).pipe(dest("dist/util"));
+    cb();
+});
+
+task("image", function (cb) {
+    src("src/imgs/*").pipe(plumber()).pipe(dest("dist/imgs"));
     cb();
 });
 
@@ -17,7 +31,7 @@ task('watch', function(cb){//监控
     let watcher = watch(
         ['src/**/*'],
         {events:['change','add','unlink']},
-        parallel('source')
+        parallel('html','lib','util','image')
     );
 
     watcher.on('change', function(path, stats) {
@@ -60,7 +74,7 @@ task('clean', () => {
     })
 });
 
-task('build', series('clean','source',function(cb){
+task('build', series('clean','html','lib','util','image',function(cb){
     console.log(`
         -----------------------------
           clean tasks are successful
@@ -69,10 +83,10 @@ task('build', series('clean','source',function(cb){
 }));
 
 //开发环境
-task('server',series('clean','watch','source',function(){
+task('server',series('clean','html','lib','util','image','watch',function(){
     connect.server({
         root: 'dist',
-        port: 9000,
+        port: 3001,
         host:"localhost",
         livereload: true,
         middleware: function (connect, opt) {
