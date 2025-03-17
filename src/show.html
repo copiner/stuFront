@@ -5,11 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>示例</title>
     <style>
+        body{
+            background-image: url("./imgs/classroom1.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat:no-repeat;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
         .icon-img {
-            /*position: absolute;*/
-            /*cursor: move;*/
-            /*width: 100px;*/
-            /*height: 100px;*/
+            position: absolute;
+            cursor: move;
+            width: 60px;
+            height: 60px;
         }
         .img1{
             top:0
@@ -23,15 +32,6 @@
         .img4{
             top:300px;
         }
-        body{
-            background-image: url("./imgs/classroom1.jpg");
-            background-position: center;
-            background-size: cover;
-            background-repeat:no-repeat;
-            height: 100vh;
-            width: 100vw;
-            position: relative;
-        }
     </style>
 </head>
 
@@ -41,29 +41,29 @@
 <img src="./imgs/sound.png" class="img3 icon-img" alt="声音传感器">
 <img src="./imgs/humidity.png" class="img4 icon-img" alt="温湿度传感器">
 <script>
-    // const images = document.querySelectorAll('img');
-    //
-    // images.forEach(image => {
-    //     let isDragging = false;
-    //     let offsetX, offsetY;
-    //
-    //     image.addEventListener('mousedown', (e) => {
-    //         isDragging = true;
-    //         offsetX = e.clientX - image.offsetLeft;
-    //         offsetY = e.clientY - image.offsetTop;
-    //     });
-    //
-    //     document.addEventListener('mousemove', (e) => {
-    //         if (isDragging) {
-    //             image.style.left = (e.clientX - offsetX) + 'px';
-    //             image.style.top = (e.clientY - offsetY) + 'px';
-    //         }
-    //     });
-    //
-    //     document.addEventListener('mouseup', () => {
-    //         isDragging = false;
-    //     });
-    // });
+const images = document.querySelectorAll('img');
+
+images.forEach(image => {
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    image.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - image.offsetLeft;
+        offsetY = e.clientY - image.offsetTop;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            image.style.left = (e.clientX - offsetX) + 'px';
+            image.style.top = (e.clientY - offsetY) + 'px';
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+});
 </script>
 </body>
 

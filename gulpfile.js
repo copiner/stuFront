@@ -22,7 +22,7 @@ task("util", function (cb) {
 });
 
 task("image", function (cb) {
-    src("src/imgs/*").pipe(plumber()).pipe(dest("dist/imgs"));
+    src("src/imgs/*",{encoding: false}).pipe(plumber()).pipe(dest("dist/imgs"));
     cb();
 });
 
