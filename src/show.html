@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>示例</title>
     <style>
-        body{
-            display: flex;
+        .title{
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
         }
         .icon-img {
             position: absolute;
@@ -15,48 +18,86 @@
             height: 50px;
         }
         .img1{
-            top:0
+            bottom:0;
+            left:0;
         }
         .img2{
-            top:50px;
+            bottom:0;
+            left:51px;
         }
         .img3{
-            top:100px;
+            bottom:0;
+            left:102px;
         }
         .img4{
-            top:150px;
+            bottom:0;
+            left:153px;
         }
-
         .drag-area{
             width: 60%;
-            height: 100vh;
+            height: 80vh;
             background-image: url("./imgs/classroom1.jpg");
             background-position: center;
             background-size: cover;
             background-repeat:no-repeat;
             position: relative;
-            border-right: 1px solid #007BFF;
+            border: 1px solid #007BFF;
         }
         .desc-area{
             width: 40%;
-            height: 100vh;
+            height: 80vh;
+            padding: 0 12px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .desc-item{
+            background-color: #e0f7fa;
+        }
+        .desc-img{
+            width: 100px;
+            height: 100px;
+            border: 1px solid grey;
+            vertical-align:center;
         }
     </style>
 </head>
 
 <body>
-<div id="dragArea" class="drag-area">
-    <img src="./imgs/earth.png" class="img1 icon-img" alt="土壤湿度传感器">
-    <img src="./imgs/light.png" class="img2 icon-img" alt="光敏传感器">
-    <img src="./imgs/sound.png" class="img3 icon-img" alt="声音传感器">
-    <img src="./imgs/humidity.png" class="img4 icon-img" alt="温湿度传感器">
+<div class="title">根据小组想要的功能，拖动传感器到相应的场景中</div>
+<div style="display: flex;">
+    <div id="dragArea" class="drag-area">
+        <img src="./imgs/trsfcgq.png" class="j_img img1 icon-img" alt="土壤水分传感器">
+        <img src="./imgs/gmcgq.png" class="j_img img2 icon-img" alt="光敏传感器">
+        <img src="./imgs/sdcgq.png" class="j_img img3 icon-img" alt="温湿度传感器">
+        <img src="./imgs/sycgq.png" class="j_img img4 icon-img" alt="声音传感器">
+    </div>
+
+    <div  class="desc-area">
+        <div class="desc-item">
+            <img src="./imgs/trsfcgq.png" class="desc-img" alt="土壤水分传感器">
+            <span>土壤水分传感器：测量土壤水分的变化</span>
+        </div>
+        <div class="desc-item">
+            <img src="./imgs/gmcgq.png" class="desc-img" alt="光敏传感器">
+            <span>光敏传感器：感知环境光线强度信息</span>
+        </div>
+        <div class="desc-item">
+            <img src="./imgs/sdcgq.png" class="desc-img" alt="温湿度传感器">
+            <span>温湿度传感器：监测环境的温度和湿度。</span>
+        </div>
+        <div class="desc-item">
+            <img src="./imgs/sycgq.png" class="desc-img" alt="声音传感器">
+            <span>声音传感器：检测声音强度大小</span>
+        </div>
+
+    </div>
 </div>
-<div  class="desc-area">
-        介绍
-</div>
+
 <script>
 const dragArea = document.getElementById('dragArea');
-const images = document.querySelectorAll('img');
+const images = document.querySelectorAll('.j_img');
 
 images.forEach(image => {
     let isDragging = false;
