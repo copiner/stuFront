@@ -10,34 +10,8 @@
         body {
             /* 设置背景颜色为淡蓝色 */
             background-color: #e0f7fa;
-            min-height: 100vh;
-            padding: 12px;
         }
 
-        .deatil-container {
-            background-color: #fff;
-            min-height: 92vh;
-            padding: 12px;
-        }
-
-        .case-container{
-            display: flex;
-            justify-content: space-between;
-
-        }
-        .title{
-            margin: 16px 0;
-            text-align: center;
-        }
-        .item-info{
-            border: 1px solid #0097a7;
-            height: 120px;
-            margin-top: -1px;
-            font-size: 14px;
-        }
-        .case-item{
-            width: 25%;
-        }
         .btn{
             color: #0097a7;
             display: inline-block;
@@ -62,11 +36,51 @@
         }
         .message-box{
             color: #0097a7;
-            border-bottom:1px solid red;
             display: flex;
             margin-bottom: 20px;
             justify-content: space-between;
         }
+
+        .deatil-container {
+            background-color: #fff;
+            width: 96%;
+            border-radius: 12px;
+            margin: 20px auto;
+            padding: 12px;
+        }
+        .case-container{
+            display: flex;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+        .title{
+            margin: 16px 0;
+            text-align: center;
+        }
+        .case-item-info{
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            border-bottom: 1px solid lightgray;
+            font-size: 14px;
+            padding-top: 14px;
+        }
+        .case-item-info > span{
+            display: inline-block;
+            text-align: center;
+            width: 84px;
+        }
+        .item-info{
+            border: 1px solid #0097a7;
+            height: 120px;
+            margin-top: -1px;
+            font-size: 14px;
+        }
+        .case-item{
+            width: 25%;
+            border: 1px solid lightgray;
+        }
+
     </style>
 </head>
 
@@ -90,30 +104,25 @@
     <div class="case-container">
         <div class="case-item">
             <div class="title">土壤湿度传感器</div>
-            <div class="j_item01">
-
+            <div class="case-item-info"><span>&nbsp;</span><span>传感器</span><span>传感器传感器</span><span>传感器</span></div>
+            <div class="case-item-info j_item01">
+                <span>A1</span><span>99</span><span>58</span><span>49</span>
             </div>
         </div>
 
         <div class="case-item">
             <div class="title">光敏传感器</div>
-            <div class="j_item02">
-
-            </div>
+            <div class="j_item02"></div>
         </div>
 
         <div class="case-item">
             <div class="title">声音传感器</div>
-            <div class="j_item03">
-
-            </div>
+            <div class="j_item03"></div>
         </div>
         <div class="case-item">
-            <!--            04-->
+            <!--04-->
             <div class="title">温湿度传感器</div>
-            <div class="j_item04">
-
-            </div>
+            <div class="j_item04"></div>
         </div>
     </div>
 </div>
@@ -122,12 +131,12 @@
 
 const Report = {
     initData:function(){
-        let key = sessionStorage.getItem("key");
-        if(!key){
-            location.href = "./login.html";
-        }
-        let name = sessionStorage.getItem("name");
-        $(".j_name").text(key + '-' + name);
+        // let key = sessionStorage.getItem("key");
+        // if(!key){
+        //     location.href = "./login.html";
+        // }
+        // let name = sessionStorage.getItem("name");
+        // $(".j_name").text(key + '-' + name);
 
 
         Report.initRecord()
