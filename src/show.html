@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>示例</title>
+    <script src="./lib/jquery.min.js"></script>
     <style>
         .title{
             font-size: 20px;
@@ -63,10 +64,38 @@
             border: 1px solid grey;
             vertical-align:center;
         }
+
+        .btn{
+            color: #0097a7;
+            display: inline-block;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0 8px;
+            border: 1px solid #0097a7;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .btn:hover{
+            background-color: #0097a7;
+            color: #ffffff;
+        }
+        .link-area{
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+        }
+        .selected{
+            background-color: #0097a7;
+            color: #ffffff;
+        }
     </style>
 </head>
 
 <body>
+<div class="link-area"><span class="btn selected">认识传感器</span><span class="btn j_dig">探究传感器</span></div>
 <div class="title">根据小组想要的功能，拖动传感器到相应的场景中</div>
 <div style="display: flex;">
     <div id="dragArea" class="drag-area">
@@ -79,11 +108,11 @@
     <div  class="desc-area">
         <div class="desc-item">
             <img src="./imgs/trsfcgq.png" class="desc-img" alt="土壤水分传感器">
-            <span>土壤水分传感器：测量土壤水分的变化</span>
+            <span>土壤水分传感器：测量土壤水分的变化。</span>
         </div>
         <div class="desc-item">
             <img src="./imgs/gmcgq.png" class="desc-img" alt="光敏传感器">
-            <span>光敏传感器：感知环境光线强度信息</span>
+            <span>光敏传感器：感知环境光线强度信息。</span>
         </div>
         <div class="desc-item">
             <img src="./imgs/sdcgq.png" class="desc-img" alt="温湿度传感器">
@@ -91,47 +120,59 @@
         </div>
         <div class="desc-item">
             <img src="./imgs/sycgq.png" class="desc-img" alt="声音传感器">
-            <span>声音传感器：检测声音强度大小</span>
+            <span>声音传感器：检测声音强度大小。</span>
         </div>
 
     </div>
 </div>
 
 <script>
-const dragArea = document.getElementById('dragArea');
-const images = document.querySelectorAll('.j_img');
 
-images.forEach(image => {
-    let isDragging = false;
-    let offsetX, offsetY;
+$(document).ready(function () {
 
-    image.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - image.offsetLeft;
-        offsetY = e.clientY - image.offsetTop;
+
+
+    $(".j_dig").on('click',function(){
+        location.href = "./main.html";
+    })
+
+    const dragArea = document.getElementById('dragArea');
+    const images = document.querySelectorAll('.j_img');
+
+    images.forEach(image => {
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        image.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - image.offsetLeft;
+            offsetY = e.clientY - image.offsetTop;
+        });
+
+        // 监听鼠标移动事件
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                // 计算图片的新位置
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+
+                // 确保图片不会超出拖动区域
+                newX = Math.max(0, Math.min(newX, dragArea.offsetWidth - image.offsetWidth));
+                newY = Math.max(0, Math.min(newY, dragArea.offsetHeight - image.offsetHeight));
+
+                // 更新图片的位置
+                image.style.left = newX + 'px';
+                image.style.top = newY + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
     });
 
-    // 监听鼠标移动事件
-    document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-            // 计算图片的新位置
-            let newX = e.clientX - offsetX;
-            let newY = e.clientY - offsetY;
-
-            // 确保图片不会超出拖动区域
-            newX = Math.max(0, Math.min(newX, dragArea.offsetWidth - image.offsetWidth));
-            newY = Math.max(0, Math.min(newY, dragArea.offsetHeight - image.offsetHeight));
-
-            // 更新图片的位置
-            image.style.left = newX + 'px';
-            image.style.top = newY + 'px';
-        }
-    });
-
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-    });
 });
+
 </script>
 </body>
 

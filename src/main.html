@@ -128,11 +128,45 @@
         .submit-button:hover {
             background-color: #00838f;
         }
+
+        .btn{
+            color: #0097a7;
+            display: inline-block;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0 8px;
+            border: 1px solid #0097a7;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .btn:hover{
+            background-color: #0097a7;
+            color: #ffffff;
+        }
+
+        .link-area{
+            display: flex;
+            justify-content: space-around;
+            height: 50px;
+            background-color:#e0f7fa;
+            align-items: center;
+        }
+        .selected{
+            background-color: #0097a7;
+            color: #ffffff;
+        }
+
     </style>
 </head>
 
 <body>
+
 <div class="main-container">
+    <div class="link-area"><span class="btn j_know">认识传感器</span><span class="btn selected">探究传感器</span></div>
+
     <div class="user-container">
         <span class="j_name"></span>
     </div>
@@ -226,6 +260,10 @@ const Main = {
 
     },
     initEvent:function(){
+
+        $(".j_know").on('click',function(){
+            location.href = "./show.html";
+        })
 
         $(".j_submit").on('click',function(){
 
