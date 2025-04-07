@@ -99,16 +99,15 @@
             border: 1px solid #ccc;
         }
         .long-input{
-            width: 70%;
+            width: 34%;
             margin-bottom: -1px;
             text-align: center;
             font-size: 16px;
         }
         .short-input{
-            width: 30%;
+            width: 33%;
             margin-bottom: -1px;
         }
-
         .submit-container{
             width: 100%;
             text-align: center;
@@ -174,19 +173,19 @@
             <div class="title">你想实现的功能：</div>
             <div>
                 <label class="radio-container">智能浇水
-                    <input type="radio" class="j_useCase" name="useCase" value="01">
+                    <input type="radio" class="j_preference" name="j_preference" value="01">
                     <span class="checkmark"></span>
                 </label>
                 <label class="radio-container">智能光照
-                    <input type="radio" class="j_useCase" name="useCase" value="02">
+                    <input type="radio" class="j_preference" name="j_preference" value="02">
                     <span class="checkmark"></span>
                 </label>
                 <label class="radio-container">噪声检测
-                    <input type="radio" class="j_useCase" name="useCase" value="03">
+                    <input type="radio" class="j_preference" name="j_preference" value="03">
                     <span class="checkmark"></span>
                 </label>
                 <label class="radio-container">智能温控
-                    <input type="radio" class="j_useCase" name="useCase" value="04">
+                    <input type="radio" class="j_preference" name="j_preference" value="04">
                     <span class="checkmark"></span>
                 </label>
             </div>
@@ -217,25 +216,31 @@
         <div class="progress-container">
             <div class="title">你的探究过程：</div>
             <div class="progress-item">
-                <div class="progress-title long-input">环境(关键词描述)</div>
-                <div class="progress-title short-input">数值</div>
+                <div class="progress-title long-input">环境</div>
+                <div class="progress-title short-input">电压值</div>
+                <div class="progress-title short-input">实验板</div>
             </div>
             <div class="progress-item">
-                <input class="long-input j_item j_env1" readonly value="用手遮挡" type="text"  name="env1">
-                <input class="short-input j_item" type="text"  name="val1">
+                <input class="long-input j_item j_env1" readonly value="" type="text"  name="env1">
+                <input class="short-input j_item" type="text"   name="vol1">
+                <input class="short-input j_item" type="text"   name="val1">
             </div>
             <div class="progress-item">
-                <input class="long-input j_item j_env2" readonly type="text"  name="env2">
+                <input class="long-input j_item j_env2" readonly value="" type="text"  name="env2">
+                <input class="short-input j_item" type="text"  name="vol2">
                 <input class="short-input j_item" type="text"  name="val2">
             </div>
             <div class="progress-item">
-                <input class="long-input j_item j_env3" readonly type="text"  name="env3">
+                <input class="long-input j_item j_env3" readonly value="" type="text"  name="env3">
+                <input class="short-input j_item" type="text"  name="vol3">
                 <input class="short-input j_item" type="text"  name="val3">
             </div>
-            <div class="progress-item">
-                <input class="long-input j_item j_env4" readonly type="text"  name="env4">
-                <input class="short-input j_item" type="text"  name="val4">
-            </div>
+<!--            <div class="progress-item">-->
+<!--                <input class="long-input j_item j_env4" readonly type="text"  name="env4">-->
+<!--                <input class="short-input j_item" type="text"  name="vol4">-->
+<!--                <input class="short-input j_item" type="text"  name="val4">-->
+
+<!--            </div>-->
         </div>
 
         <div class="submit-container">
@@ -249,10 +254,6 @@
 <script>
 
 const Main = {
-    earth:[],
-    light:[],
-    sound:[],
-    humidity:[],
     initData:function(){
         // let key = sessionStorage.getItem("key");
         // if(!key){
@@ -271,31 +272,38 @@ const Main = {
         $(".j_sensor").on('click',function(){
             let sensor = $('.j_sensor:checked').val();
             if(sensor == "01"){//土壤湿度传感器
-                $(".j_env1").val()
+                $(".j_env1").val("干燥")
+                $(".j_env2").val("一点水")
+                $(".j_env3").val("多点水")
             }
 
             if(sensor == "02"){//光敏传感器
-                $(".j_env1").val()
+                $(".j_env1").val("黑暗")
+                $(".j_env2").val("亮")
+                $(".j_env3").val("较亮")
             }
 
             if(sensor == "03"){//声音传感器
-                $(".j_env1").val()
+                $(".j_env1").val("安静")
+                $(".j_env2").val("小声讲话")
+                $(".j_env3").val("大声讲话")
             }
 
             if(sensor == "04"){//温湿度传感器
-                $(".j_env1").val()
+                $(".j_env1").val("降温")
+                $(".j_env2").val("常温")
+                $(".j_env3").val("加热")
             }
         })
 
         $(".j_submit").on('click',function(){
 
-
-            let useCase = $('.j_useCase:checked').val();
+            let preference = $('.j_preference:checked').val();
             let sensor = $('.j_sensor:checked').val();
 
             let params = {
                 id:sessionStorage.getItem("key"),
-                useCase,
+                preference,
                 sensor,
             };
             $('.j_item').each(function(){
@@ -303,6 +311,7 @@ const Main = {
                 let val = $(this).val();
                 params[key] = val;
             })
+
 
             Main.submitExp(params);
 
