@@ -236,20 +236,10 @@ const Report = {
         data.forEach(function(item){
 
             if(item.sensor == "01"){
-                html01 = html01 + '<div class="item-info"><div>' + item.seatNumber + '</div>';
-                if(item.env1 && item.val1){
-                    html01 = html01 +'<div>'+ item.env1 + ':' + item.val1 +'</div>'
-                }
-                if(item.env2 && item.val2){
-                    html01 = html01 +'<div>'+  item.env2 + ':' + item.val2 +'</div>'
-                }
-                if(item.env3 && item.val3){
-                    html01 = html01 +'<div>'+  item.env3 + ':' + item.val3 +'</div>'
-                }
-                if(item.env4 && item.val4){
-                    html01 = html01 +'<div>'+  item.env4 + ':' + item.val4 +'</div>'
-                }
-                html01 = html01 + '</div>'
+                html01 = html01 + '<tr>';
+                html01 = html01 +'<td>' + item.seatNumber +'</td>' +'<td>' + item.vol1 +'</td>' +'<td>' + item.vol2 +'</td>'  +'<td>' + item.vol3 +'</td>'
+                html01 = html01 +'<td>' + item.val1 +'</td>' +'<td>' + item.val2 +'</td>'  +'<td>' + item.val3 +'</td>'
+                html01 = html01 + '</tr>'
             }
 
         })
