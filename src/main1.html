@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>探究内容</title>
+    <script src="./lib/jquery.min.js"></script>
+    <style>
+
+        body {
+            /* 设置背景颜色为淡蓝色 */
+            background-color: #e0f7fa;
+        }
+        /* 隐藏原生的单选框 */
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* 自定义单选框容器样式 */
+        .radio-container {
+            display: inline-block;
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            margin-right: 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* 模拟单选框 */
+        .radio-container .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+        }
+
+        /* 选中时显示对号 */
+        .radio-container input:checked~.checkmark:after {
+            content: '✓';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #007BFF;
+            font-size: 18px;
+        }
+
+        /* 鼠标悬停效果 */
+        .radio-container:hover input~.checkmark {
+            border-color: #007BFF;
+        }
+
+        .main-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container{
+            width: 750px;
+            padding: 32px;
+            background-color: #ffffff;
+            border-radius: 14px;
+        }
+        .user-container{
+            text-align: left;
+            margin: 32px 0;
+        }
+        .case-container{
+            display: flex;
+            margin-top: 24px;
+        }
+        .sensor-container{
+            display: flex;
+            margin-top: 24px;
+        }
+        .title{
+            width: 160px;
+        }
+        .progress-container{
+            margin: 20px auto;
+        }
+        .progress-item{
+            display: flex;
+            justify-content: space-between;
+        }
+        .progress-title{
+            text-align: center;
+            padding: 8px;
+        }
+        .progress-item input {
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+        .long-input{
+            width: 40%;
+            margin-bottom: -1px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .short-input{
+            width: 30%;
+            margin-bottom: -1px;
+        }
+
+        .submit-container{
+            width: 100%;
+            text-align: center;
+        }
+        .submit-button {
+            width: 180px;
+            padding: 10px;
+            background-color: #0097a7;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 15px 0;
+        }
+
+        .submit-button:hover {
+            background-color: #00838f;
+        }
+
+        .btn{
+            color: #0097a7;
+            display: inline-block;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0 8px;
+            border: 1px solid #0097a7;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .btn:hover{
+            background-color: #0097a7;
+            color: #ffffff;
+        }
+
+        .link-area{
+            display: flex;
+            justify-content: space-around;
+            height: 50px;
+            background-color:#e0f7fa;
+            align-items: center;
+        }
+        .selected{
+            background-color: #0097a7;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <div class="user-container">
+        <span class="j_name"></span>
+    </div>
+    <div class="container">
+
+        <div style="text-align: center;font-size:20px;font-weight: bold;">实验二</div>
+        <div>土壤湿度传感器</div>
+        <div class="progress-container">
+            <div class="title">继续探究实验：</div>
+            <div class="progress-item">
+                <div class="progress-title long-input">实验环境</div>
+                <div class="progress-title short-input">实验板屏幕数值</div>
+                <div class="progress-title short-input">电压表数值</div>
+            </div>
+            <div class="progress-item">
+                <input class="long-input j_item j_env1" readonly value="用手遮挡" type="text"  name="env1">
+                <input class="short-input j_item" type="text"  name="val1">
+                <input class="short-input j_item" type="text"  name="val1">
+            </div>
+            <div class="progress-item">
+                <input class="long-input j_item j_env2" readonly type="text"  name="env2">
+                <input class="short-input j_item" type="text"  name="val2">
+                <input class="short-input j_item" type="text"  name="val2">
+            </div>
+            <div class="progress-item">
+                <input class="long-input j_item j_env3" readonly type="text"  name="env3">
+                <input class="short-input j_item" type="text"  name="val3">
+                <input class="short-input j_item" type="text"  name="val3">
+            </div>
+<!--            <div class="progress-item">-->
+<!--                <input class="long-input j_item j_env4" readonly type="text"  name="env4">-->
+<!--                <input class="short-input j_item" type="text"  name="val4">-->
+<!--                <input class="short-input j_item" type="text"  name="val3">-->
+<!--            </div>-->
+        </div>
+
+        <div class="submit-container">
+            <button type="submit" class="submit-button j_submit">提交</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const Main = {
+        earth:[],
+        light:[],
+        sound:[],
+        humidity:[],
+        initData:function(){
+            // let key = sessionStorage.getItem("key");
+            // if(!key){
+            //     location.href = "./login.html";
+            // }
+            // let name = sessionStorage.getItem("name");
+            // $(".j_name").text(key + '-' + name);
+
+        },
+        initEvent:function(){
+
+
+            $(".j_sensor").on('click',function(){
+                let sensor = $('.j_sensor:checked').val();
+                if(sensor == "01"){//土壤湿度传感器
+                    $(".j_env1").val()
+                }
+
+                if(sensor == "02"){//光敏传感器
+                    $(".j_env1").val()
+                }
+
+                if(sensor == "03"){//声音传感器
+                    $(".j_env1").val()
+                }
+
+                if(sensor == "04"){//温湿度传感器
+                    $(".j_env1").val()
+                }
+            })
+
+            $(".j_submit").on('click',function(){
+
+
+                let useCase = $('.j_useCase:checked').val();
+                let sensor = $('.j_sensor:checked').val();
+
+                let params = {
+                    id:sessionStorage.getItem("key"),
+                    useCase,
+                    sensor,
+                };
+                $('.j_item').each(function(){
+                    let key = $(this).attr("name");
+                    let val = $(this).val();
+                    params[key] = val;
+                })
+
+                Main.submitExp(params);
+
+            })
+        },
+
+        submitExp:function (data){
+            $.ajax({
+                url: '/lesson/reports',
+                method: 'POST',
+                data:JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === 'success') {
+                        location.href = "result.html"
+                    } else {
+
+                    }
+                },
+                error: function (error) {
+
+                }
+            });
+        },
+
+
+
+
+
+        init:function(){
+            Main.initData();
+            Main.initEvent();
+        }
+    }
+
+    $(document).ready(function () {
+
+        Main.init()
+
+    });
+</script>
+</body>
+
+</html>
