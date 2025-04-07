@@ -56,31 +56,34 @@
         .title{
             margin: 16px 0;
             text-align: center;
+            font-weight: bold;
         }
-        .case-item-info{
-            display: flex;
-            justify-content: space-between;
-            text-align: center;
-            border-bottom: 1px solid lightgray;
-            font-size: 14px;
-            padding-top: 14px;
-        }
-        .case-item-info > span{
-            display: inline-block;
-            text-align: center;
-            width: 84px;
-        }
-        .item-info{
-            border: 1px solid #0097a7;
-            height: 120px;
-            margin-top: -1px;
-            font-size: 14px;
-        }
+
         .case-item{
             width: 25%;
             border: 1px solid lightgray;
         }
 
+        .sensor-table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        .sensor-table th,
+        .sensor-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            width: 118px;
+            text-align: center;
+        }
+
+        .sensor-table thead th {
+              background-color: #e0e0e0;
+        }
+        .sensor-table tr th:nth-child(4),
+        .sensor-table tr td:nth-child(4){
+            border-right: 1px solid #ccc;
+        }
     </style>
 </head>
 
@@ -104,13 +107,57 @@
     <div class="case-container">
         <div class="case-item">
             <div class="title">土壤湿度传感器</div>
-            <div class="case-item-info"><span>&nbsp;</span><span>干燥</span><span>湿润</span><span>浸泡</span></div>
-            <div class="case-item-info j_item01">
-                <span>A1</span><span>99</span><span>58</span><span>49</span>
-            </div>
-            <div class="case-item-info j_item01">
-                <span>A1</span><span>12</span><span>15</span><span>25</span>
-            </div>
+            <table class="sensor-table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th colspan="3">电压表</th>
+                    <th colspan="3">实验板</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>黑暗</th>
+                    <th>亮</th>
+                    <th>较亮</th>
+                    <th>黑暗</th>
+                    <th>亮</th>
+                    <th>较亮</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>A3</td>
+                    <td>12</td>
+                    <td>15</td>
+                    <td>17</td>
+                    <td>222</td>
+                    <td>333</td>
+                    <td>444</td>
+                </tr>
+                <tr>
+                    <td>A5</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>13</td>
+                    <td>222-790</td>
+                    <td>333</td>
+                    <td>444</td>
+                </tr>
+                <tr>
+                    <td>A1</td>
+                    <td>12</td>
+                    <td>14</td>
+                    <td>16</td>
+                    <td>132</td>
+                    <td>222</td>
+                    <td>333</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+
         </div>
 
         <div class="case-item">
@@ -204,54 +251,7 @@ const Report = {
                 }
                 html01 = html01 + '</div>'
             }
-            if(item.sensor == "02"){
-                html02 = html02 + '<div class="item-info"><div>' + item.seatNumber + '</div>';
-                if(item.env1 && item.val1){
-                    html02 = html02 +'<div>'+ item.env1 + ':' + item.val1 +'</div>'
-                }
-                if(item.env2 && item.val2){
-                    html02 = html02 +'<div>'+  item.env2 + ':' + item.val2 +'</div>'
-                }
-                if(item.env3 && item.val3){
-                    html02 = html02 +'<div>'+  item.env3 + ':' + item.val3 +'</div>'
-                }
-                if(item.env4 && item.val4){
-                    html02 = html02 +'<div>'+  item.env4 + ':' + item.val4 +'</div>'
-                }
-                html02 = html02 + '</div>'
-            }
-            if(item.sensor == "03"){
-                html03 = html03 + '<div class="item-info"><div>' + item.seatNumber + '</div>';
-                if(item.env1 && item.val1){
-                    html03 = html03 +'<div>'+ item.env1 + ':' + item.val1 +'</div>'
-                }
-                if(item.env2 && item.val2){
-                    html03 = html03 +'<div>'+  item.env2 + ':' + item.val2 +'</div>'
-                }
-                if(item.env3 && item.val3){
-                    html03 = html03 +'<div>'+  item.env3 + ':' + item.val3 +'</div>'
-                }
-                if(item.env4 && item.val4){
-                    html03 = html03 +'<div>'+  item.env4 + ':' + item.val4 +'</div>'
-                }
-                html03 = html03 + '</div>'
-            }
-            if(item.sensor == "04"){
-                html04 = html04 + '<div class="item-info"><div>' + item.seatNumber + '</div>';
-                if(item.env1 && item.val1){
-                    html04 = html04 +'<div>'+ item.env1 + ':' + item.val1 +'</div>'
-                }
-                if(item.env2 && item.val2){
-                    html04 = html04 +'<div>'+  item.env2 + ':' + item.val2 +'</div>'
-                }
-                if(item.env3 && item.val3){
-                    html04 = html04 +'<div>'+  item.env3 + ':' + item.val3 +'</div>'
-                }
-                if(item.env4 && item.val4){
-                    html04 = html04 +'<div>'+  item.env4 + ':' + item.val4 +'</div>'
-                }
-                html04 = html04 + '</div>'
-            }
+
         })
 
         //$(".j_item01").html(html01);
